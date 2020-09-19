@@ -1,2 +1,2 @@
-# clue
-clue is a data acquisition (DAQ) system.
+# ClueNet
+ClueNet is a data acquisition (DAQ) system.

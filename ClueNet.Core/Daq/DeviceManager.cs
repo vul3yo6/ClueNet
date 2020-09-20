@@ -8,8 +8,10 @@ using System.Text;
 
 namespace ClueNet.Core.Daq
 {
-    public class DaqDeviceManager : IDisposable
+    public class DeviceManager : IDisposable
     {
+        #region Event
+
         private readonly object _lockOfDataReceived = new object();
 
         // reference
@@ -22,9 +24,9 @@ namespace ClueNet.Core.Daq
             {
                 lock (_lockOfDataReceived)
                 {
-                    foreach (var plugger in _pluggers)
+                    foreach (var device in _daqDevices)
                     {
-                        plugger.Value.DataReceived += value;
+                        device.Value.DataReceived += value;
                     }
                 }
             }
@@ -32,13 +34,41 @@ namespace ClueNet.Core.Daq
             {
                 lock (_lockOfDataReceived)
                 {
-                    foreach (var plugger in _pluggers)
+                    foreach (var device in _daqDevices)
                     {
-                        plugger.Value.DataReceived -= value;
+                        device.Value.DataReceived -= value;
                     }
                 }
             }
         }
+
+        private readonly object _lockOfDigitalInputReceived = new object();
+
+        public event EventHandler<DaqDigitalInputEventArgs> DigitalInputReceived
+        {
+            add
+            {
+                lock (_lockOfDigitalInputReceived)
+                {
+                    foreach (var device in _diDevices)
+                    {
+                        device.Value.DigitalInputReceived += value;
+                    }
+                }
+            }
+            remove
+            {
+                lock (_lockOfDigitalInputReceived)
+                {
+                    foreach (var device in _diDevices)
+                    {
+                        device.Value.DigitalInputReceived -= value;
+                    }
+                }
+            }
+        }
+
+        #endregion
 
         public bool CheckHealth()
         {
@@ -46,24 +76,36 @@ namespace ClueNet.Core.Daq
         }
 
         [ImportMany(typeof(IDaqDevice))]
-        private IEnumerable<Lazy<IDaqDevice>> _pluggers;
-        //private IEnumerable<Lazy<IDaqDevice>> _pluggers;
+        private IEnumerable<Lazy<IDaqDevice>> _daqDevices;
+
+        [ImportMany(typeof(IDigitalInputDevice))]
+        private IEnumerable<Lazy<IDigitalInputDevice>> _diDevices;
 
         public void Initial()
         {
             LoadPlugIn();
 
-            foreach (var plugger in _pluggers)
+            foreach (var device in _daqDevices)
             {
-                plugger.Value.Initial();
+                device.Value.Initial();
+            }
+
+            foreach (var device in _diDevices)
+            {
+                device.Value.Initial();
             }
         }
 
         public void Connect()
         {
-            foreach (var plugger in _pluggers)
+            foreach (var device in _daqDevices)
             {
-                plugger.Value.Connect();
+                device.Value.Connect();
+            }
+
+            foreach (var device in _diDevices)
+            {
+                device.Value.Connect();
             }
         }
 

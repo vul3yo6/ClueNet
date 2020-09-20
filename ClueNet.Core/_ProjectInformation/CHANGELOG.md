@@ -19,4 +19,5 @@
 * bug fixes
   * N/A
 * enhancements
-  * N/A
+  * 實作 IDaqDevice 介面
+  * 實作 IDigitalInputDevice 介面

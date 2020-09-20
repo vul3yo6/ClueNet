@@ -1,26 +1,28 @@
-﻿using ClueNet.Core.Common;
+﻿using ClueNet.Core.Daq;
+using ClueNet.Core.Daq.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 
-namespace ClueNet.Core.Daq.Interfaces
+namespace ClueNet.PlugInSample
 {
-    public class TestDaqDevice : BaseDaqDevice
+    // the sample ablout Inheritance BaseDaqDevice
+    public class DemoVoltageDevice : BaseDaqDevice
     {
-        private KtTimer _timer;
+        private Timer _timer;
 
-        public TestDaqDevice() : base(nameof(TestDaqDevice))
+        public DemoVoltageDevice() : base("DemoVoltage")
         {
         }
 
         public override void Initial()
         {
-            _timer = new KtTimer(nameof(TestDaqDevice), 500, Pooling);
-        }
-
-        private void Pooling()
-        {
-            TriggerDataReceived("Test-Channel1", 100);
+            _timer = new Timer(500);
+            _timer.Elapsed += (object sender, ElapsedEventArgs e) =>
+            {
+                TriggerDataReceived(Name, 5);
+            };
         }
 
         public override void Reconnect()

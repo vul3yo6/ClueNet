@@ -7,11 +7,11 @@ namespace ClueNet.PlugInSample
 {
     // the sample ablout Inheritance IDaqDevice
     [Export(typeof(IDaqDevice))]
-    public class TemperatureDevice : IDaqDevice
+    public class DemoTemperatureDevice : IDaqDevice
     {
         private Timer _timer;
 
-        public string Name { get { return "TemperatureDemo"; } }
+        public string Name { get { return "DemoTemperature"; } }
 
         public bool IsConnected { get; private set; }
 

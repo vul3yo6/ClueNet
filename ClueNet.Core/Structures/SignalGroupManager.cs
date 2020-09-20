@@ -5,6 +5,8 @@ using System.Text;
 
 namespace ClueNet.Core.Structures
 {
+    internal enum SignalState { None, Started, Completed }
+
     internal class SignalGroupManager
     {
         private ConcurrentDictionary<string, SignalGroup> SignalDict { get; set; }
@@ -18,6 +20,14 @@ namespace ClueNet.Core.Structures
         public SignalGroup this[string groupName]
         {
             get { return SignalDict[groupName]; }
+        }
+
+        public void Reset()
+        {
+            foreach (var signalGroup in SignalDict.Values)
+            {
+                signalGroup.Clear();
+            }
         }
     }
 
@@ -38,7 +48,30 @@ namespace ClueNet.Core.Structures
             {
                 lock(_lockOfReceiveEnabled)
                 {
+                    if (value && (_receiveEnabled == false))
+                    {
+                        State = SignalState.Started;
+                    }
+                    else if ((value == false) && _receiveEnabled)
+                    {
+                        State = SignalState.Completed;
+                    }
+
                     _receiveEnabled = value;
+                }
+            }
+        }
+
+        private readonly object _lockOfSignalState = new object();
+        private SignalState _state = SignalState.None;
+        public SignalState State
+        {
+            get { return _state; }
+            private set
+            {
+                lock (_lockOfSignalState)
+                {
+                    _state = value;
                 }
             }
         }
@@ -47,8 +80,23 @@ namespace ClueNet.Core.Structures
         {
             if (ReceiveEnabled)
             {
+                if (SignalDict.ContainsKey(signalName) == false)
+                {
+                    SignalDict[signalName] = new SignalItem();
+                }
+
                 SignalDict[signalName].AddValue(value);
             }
+        }
+
+        public void Clear()
+        {
+            foreach (var signalItem in SignalDict.Values)
+            {
+                signalItem.Clear();
+            }
+
+            State = SignalState.None;
         }
 
         public SignalItem this[string signalName]
@@ -83,6 +131,14 @@ namespace ClueNet.Core.Structures
             if (ReceiveEnabled)
             {
                 Values.Enqueue(value);
+            }
+        }
+
+        public void Clear()
+        {
+            double result;
+            while (Values.TryDequeue(out result))
+            {
             }
         }
     }

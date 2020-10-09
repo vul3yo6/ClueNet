@@ -16,7 +16,9 @@
   * 控制器數值
   * Log 訊息
 * 工作日誌
-  * 將 SignalState 移動到 IDigitalInputDevice 介面內
+  * 合併 SignalGroup 和 SignalItem 類別
+  * 取消 SignalGroup 的 SignalState 屬性 (單純顯示機台開始加工)
+  * 繪圖與 Label
 
 
 ### 1.0.0.0 - 2020-??-??

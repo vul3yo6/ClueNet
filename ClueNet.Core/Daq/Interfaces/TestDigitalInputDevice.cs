@@ -26,7 +26,7 @@ namespace ClueNet.Core.Daq.Interfaces
             if (_previousDi != isEnabled)
             {
                 _previousDi = isEnabled;
-                TriggerDigitalInputReceived("Test-Channel1", isEnabled);
+                TriggerDigitalInputReceived("Test-Channel1", isEnabled ? SignalState.Start : SignalState.Complete);
             }
         }
 

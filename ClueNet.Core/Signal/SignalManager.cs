@@ -1,7 +1,11 @@
-﻿using ClueNet.Core.Structures;
+﻿using ClueNet.Core.Daq.Interfaces;
+using ClueNet.Core.Structures;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
+
+[assembly: InternalsVisibleTo("ClueNet.Tests")]
 
 namespace ClueNet.Core.Signal
 {
@@ -20,14 +24,19 @@ namespace ClueNet.Core.Signal
             _signalGroup.AddValue(groupName, signalName, value);
         }
 
-        public void SetSignalGroupEnabled(string groupName, bool enabled)
+        public void SetSignalGroupEnabled(string groupName, SignalState state)
         {
-            _signalGroup[groupName].ReceiveEnabled = enabled;
+            _signalGroup[groupName].SignalState = state;
         }
 
-        public void SetSignalItemEnabled(string groupName, string signalName, bool enabled)
+        public void SetSignalItemEnabled(string groupName, string signalName, SignalState state)
         {
-            _signalGroup[groupName][signalName].ReceiveEnabled = enabled;
+            _signalGroup[groupName][signalName].SignalState = state;
+        }
+
+        public int GetSignalItemCount(string groupName, string signalName)
+        {
+            return _signalGroup[groupName][signalName].Count;
         }
     }
 }

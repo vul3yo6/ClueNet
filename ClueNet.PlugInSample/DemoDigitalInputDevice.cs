@@ -29,13 +29,15 @@ namespace ClueNet.PlugInSample
                 if (_previousDiOfTemperature != isEnabledOfTemperature)
                 {
                     _previousDiOfTemperature = isEnabledOfTemperature;
-                    TriggerDigitalInputReceived("DemoTemperature", isEnabledOfTemperature);
+                    TriggerDigitalInputReceived("DemoTemperature", 
+                        isEnabledOfTemperature ? SignalState.Start : SignalState.Complete);
                 }
 
                 if (_previousDiOfVoltage != isEnabledOfVoltage)
                 {
                     _previousDiOfVoltage = isEnabledOfVoltage;
-                    TriggerDigitalInputReceived("DemoVoltage", isEnabledOfVoltage);
+                    TriggerDigitalInputReceived("DemoVoltage", 
+                        isEnabledOfVoltage ? SignalState.Start : SignalState.Complete);
                 }
             };
         }

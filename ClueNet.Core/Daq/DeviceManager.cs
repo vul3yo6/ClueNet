@@ -44,7 +44,7 @@ namespace ClueNet.Core.Daq
 
         private readonly object _lockOfDigitalInputReceived = new object();
 
-        public event EventHandler<DaqDigitalInputEventArgs> DigitalInputReceived
+        public event EventHandler<DaqControlEventArgs> DigitalInputReceived
         {
             add
             {
@@ -78,8 +78,8 @@ namespace ClueNet.Core.Daq
         [ImportMany(typeof(IDaqDevice))]
         private IEnumerable<Lazy<IDaqDevice>> _daqDevices;
 
-        [ImportMany(typeof(IDigitalInputDevice))]
-        private IEnumerable<Lazy<IDigitalInputDevice>> _diDevices;
+        [ImportMany(typeof(IDaqControlDevice))]
+        private IEnumerable<Lazy<IDaqControlDevice>> _diDevices;
 
         public void Initial()
         {

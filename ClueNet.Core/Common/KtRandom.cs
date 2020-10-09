@@ -22,5 +22,12 @@ namespace ClueNet.Core.Common
         {
             return _rnd.NextDouble();
         }
+
+        public static T Next<T>() where T : Enum
+        {
+            Array values = Enum.GetValues(typeof(T));
+            int index = Next(values.Length);
+            return (T)(values.GetValue(index));
+        }
     }
 }

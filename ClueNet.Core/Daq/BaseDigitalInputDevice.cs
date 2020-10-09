@@ -6,8 +6,8 @@ using System.Text;
 
 namespace ClueNet.Core.Daq
 {
-    [InheritedExport(typeof(IDigitalInputDevice))]
-    public abstract class BaseDigitalInputDevice : IDigitalInputDevice
+    [InheritedExport(typeof(IDaqControlDevice))]
+    public abstract class BaseDigitalInputDevice : IDaqControlDevice
     {
         public string Name { get; private set; }
         public bool IsConnected { get; protected set; }
@@ -31,11 +31,11 @@ namespace ClueNet.Core.Daq
             ConnectionStateChanged?.Invoke(this, new DeviceConnectionStateEventArgs(state));
         }
 
-        public event EventHandler<DaqDigitalInputEventArgs> DigitalInputReceived;
+        public event EventHandler<DaqControlEventArgs> DigitalInputReceived;
 
-        protected void TriggerDigitalInputReceived(string name, bool enabled)
+        protected void TriggerDigitalInputReceived(string name, SignalState state)
         {
-            DigitalInputReceived?.Invoke(this, new DaqDigitalInputEventArgs(name, enabled));
+            DigitalInputReceived?.Invoke(this, new DaqControlEventArgs(name, state));
         }
 
         public abstract void Initial();

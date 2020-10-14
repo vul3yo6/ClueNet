@@ -1,17 +1,27 @@
 ﻿using ClueNet.Core.Daq.Interfaces;
 using ClueNet.Core.Signal;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace ClueNet.Tests
 {
     public class SignalManagerTest
     {
+        private readonly List<string> _groupNames = new List<string>()
+        {
+            "DemoGroup"
+        };
+        private readonly List<string> _channelNames = new List<string>()
+        {
+            "DemoTemperature", "DemoVoltage"
+        };
+
         private readonly SignalManager _manager;
 
         public SignalManagerTest()
         {
-            _manager = new SignalManager();
+            _manager = new SignalManager(_groupNames, _channelNames);
         }
 
         [Fact]
@@ -31,11 +41,12 @@ namespace ClueNet.Tests
             Assert.Equal(expected, actual);
 
             // Act
-            _manager.SetSignalGroupEnabled(groupName, SignalState.Start);
             _manager.SetSignalItemEnabled(groupName, signalName, SignalState.Start);
             _manager.AddSignalItem(groupName, signalName, 0.99);
             expected = 1;
             actual = _manager.GetSignalItemCount(groupName, signalName);
+
+            string temp = _manager.Signals.ToString();
 
             // Assert
             Assert.Equal(expected, actual);

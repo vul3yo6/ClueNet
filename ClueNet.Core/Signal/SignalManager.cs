@@ -11,32 +11,27 @@ namespace ClueNet.Core.Signal
 {
     internal class SignalManager
     {
-        private SignalGroupManager _signalGroup;
+        public SignalGroupManager Signals { get; private set; }
 
-        public SignalManager()
+        public SignalManager(List<string> groupNames, List<string> channelNames)
         {
-            _signalGroup = new SignalGroupManager();
+            Signals = new SignalGroupManager(groupNames, channelNames);
         }
 
         // 依據 IO 變更 flag 後, 才收集數值
         public void AddSignalItem(string groupName, string signalName, double value)
         {
-            _signalGroup.AddValue(groupName, signalName, value);
-        }
-
-        public void SetSignalGroupEnabled(string groupName, SignalState state)
-        {
-            _signalGroup[groupName].SignalState = state;
+            Signals.AddValue(groupName, signalName, value);
         }
 
         public void SetSignalItemEnabled(string groupName, string signalName, SignalState state)
         {
-            _signalGroup[groupName][signalName].SignalState = state;
+            Signals[groupName][signalName].SignalState = state;
         }
 
         public int GetSignalItemCount(string groupName, string signalName)
         {
-            return _signalGroup[groupName][signalName].Count;
+            return Signals[groupName][signalName].Count;
         }
     }
 }

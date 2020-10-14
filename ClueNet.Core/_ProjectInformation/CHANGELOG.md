@@ -30,3 +30,4 @@
 * enhancements
   * 實作 IDaqDevice 介面
   * 實作 IDigitalInputDevice 介面
+  * 實作 VectorClock 類別

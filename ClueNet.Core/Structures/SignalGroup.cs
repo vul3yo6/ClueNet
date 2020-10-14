@@ -7,90 +7,50 @@ using System.Text;
 
 namespace ClueNet.Core.Structures
 {
-    internal class SignalGroupManager
-    {
-        private ConcurrentDictionary<string, SignalGroup> SignalDict { get; set; }
-            = new ConcurrentDictionary<string, SignalGroup>();
-
-        public SignalGroupManager(List<string> groupNames, List<string> channelNames)
-        {
-            foreach (string groupName in groupNames)
-            {
-                SignalDict[groupName] = new SignalGroup(groupName, channelNames);
-            }
-        }
-
-        public void AddValue(string groupName, string signalName, double value)
-        {
-            SignalDict[groupName].AddValue(signalName, value);
-        }
-
-        public SignalGroup this[string groupName]
-        {
-            get 
-            {
-                return SignalDict[groupName]; 
-            }
-        }
-
-        public void Reset()
-        {
-            foreach (var signalGroup in SignalDict.Values)
-            {
-                signalGroup.Clear();
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"{string.Join(",", SignalDict.Values)}";
-        }
-    }
-
-    internal class SignalGroup
+    public class SignalGroup
     {
         // 訊號群組名稱, 例如: Machine01
         public string Name { get; set; }
-        private ConcurrentDictionary<string, SignalChannel> SignalDict { get; set; } 
-            = new ConcurrentDictionary<string, SignalChannel>();
+        private ConcurrentDictionary<string, SignalQueue> _dict { get; set; } 
+            = new ConcurrentDictionary<string, SignalQueue>();
 
         public SignalGroup(string groupName, List<string> channelNames)
         {
             Name = groupName;
             foreach (string channelName in channelNames)
             {
-                SignalDict[channelName] = new SignalChannel(channelName, channelNames);
+                _dict[channelName] = new SignalQueue(channelName, channelNames);
             }
         }
 
         public void AddValue(string signalName, double value)
         {
-            SignalDict[signalName].AddValue(value);
+            _dict[signalName].AddValue(value);
         }
 
         public void Clear()
         {
-            foreach (var signalItem in SignalDict.Values)
+            foreach (var signalItem in _dict.Values)
             {
                 signalItem.Clear();
             }
         }
 
-        public SignalChannel this[string signalName]
+        public SignalQueue this[string signalName]
         {
             get
             {
-                return SignalDict[signalName]; 
+                return _dict[signalName]; 
             }
         }
 
         public override string ToString()
         {
-            return $"{Name}: {{{string.Join(",", SignalDict.Values)}}}]";
+            return $"{Name}: {{{string.Join(",", _dict.Values)}}}]";
         }
     }
 
-    internal class SignalChannel
+    public class SignalQueue
     {
         // 訊號單元名稱, 例如: 震動
         public string Name { get; private set; }
@@ -114,7 +74,7 @@ namespace ClueNet.Core.Structures
             }
         }
 
-        public SignalChannel(string name, List<string> channelNames)
+        public SignalQueue(string name, List<string> channelNames)
         {
             Name = name;
             ChannelNames = channelNames;
@@ -142,7 +102,7 @@ namespace ClueNet.Core.Structures
         }
     }
 
-    internal class SignalItem
+    public class SignalItem
     {
         public VectorClock Clock { get; private set; }
         public double Value { get; private set; }

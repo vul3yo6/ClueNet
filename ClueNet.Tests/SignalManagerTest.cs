@@ -46,7 +46,7 @@ namespace ClueNet.Tests
             expected = 1;
             actual = _manager.GetSignalItemCount(groupName, signalName);
 
-            string temp = _manager.Signals.ToString();
+            string temp = _manager.ToString();
 
             // Assert
             Assert.Equal(expected, actual);

@@ -28,7 +28,7 @@ namespace ClueNet.Client
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            txtName.Text = new Class1().Name;
+            txtName.Text = "";
         }
     }
 }

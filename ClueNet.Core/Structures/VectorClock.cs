@@ -8,7 +8,7 @@ using System.Text;
 namespace ClueNet.Core.Structures
 {
     // VectorClock 內含多組 VectorNum
-    internal class VectorClock
+    public class VectorClock
     {
         public string Name { get; private set; }
         private ConcurrentDictionary<string, VectorNum> _dict { get; set; }
@@ -58,7 +58,7 @@ namespace ClueNet.Core.Structures
     }
 
     // VectorClock 內的數值
-    internal class VectorNum
+    public class VectorNum
     {
         private readonly object _lock = new object();
         private byte _num;

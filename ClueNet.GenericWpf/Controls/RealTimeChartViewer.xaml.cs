@@ -86,7 +86,7 @@ namespace ClueNet.GenericWpf.Controls
         private static XYChart GetChart(int width, int height, string xTitle, string yTitle, int fontSize,
             Dictionary<string, LineChartInfo> lineInfos, List<LineChartPoint> points)
         {
-            Chart.setLicenseCode("DEVP-2JAU-9NMU-P9S2-0EF6-4B0F");
+            //Chart.setLicenseCode("XXXXX");
 
             XYChart c = new XYChart(width, height);
 

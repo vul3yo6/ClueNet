@@ -1,4 +1,6 @@
-﻿using ClueNet.Core;
+﻿using ClueNet.Client.Models;
+using ClueNet.Client.Views.Pages;
+using ClueNet.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,18 @@ namespace ClueNet.Client
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             txtName.Text = "";
+            //Global.Devices.Connect();
+
+            object obj = new Uri("Views/Pages/SignalPage.xaml", UriKind.Relative);
+            //pnlBody.Navigate(new SignalPage());
+            pnlBody.Navigate(new Uri("Views/Pages/SignalPage.xaml", UriKind.Relative), obj);
+
+            //NavigationService.GetNavigationService(this)
+            //    .Navigate(new Uri("Views/Pages/SignalPage.xaml", UriKind.Relative), obj);
+
+            //NavigationService.GetNavigationService(this).Navigate(new Uri("Page2.xaml", UriKind.Relative));
+            //NavigationService.GetNavigationService(this).GoForward(); //向後轉
+            //NavigationService.GetNavigationService(this).GoBack(); //向前轉
         }
     }
 }

@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClueNet.Client", "ClueNet.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClueNet.Tests", "ClueNet.Tests\ClueNet.Tests.csproj", "{907602E1-94F9-4A78-811A-A1F2BE4CDE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClueNet.PlugInSample", "ClueNet.PlugInSample\ClueNet.PlugInSample.csproj", "{88A2998C-5D5E-4F38-8BA5-219CF1CACAC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClueNet.PlugInSample", "ClueNet.PlugInSample\ClueNet.PlugInSample.csproj", "{88A2998C-5D5E-4F38-8BA5-219CF1CACAC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClueNet.GenericWpf", "ClueNet.GenericWpf\ClueNet.GenericWpf.csproj", "{61CAE4E0-4782-4A9F-B1C9-DF718C8164AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{88A2998C-5D5E-4F38-8BA5-219CF1CACAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88A2998C-5D5E-4F38-8BA5-219CF1CACAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88A2998C-5D5E-4F38-8BA5-219CF1CACAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CAE4E0-4782-4A9F-B1C9-DF718C8164AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CAE4E0-4782-4A9F-B1C9-DF718C8164AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CAE4E0-4782-4A9F-B1C9-DF718C8164AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CAE4E0-4782-4A9F-B1C9-DF718C8164AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

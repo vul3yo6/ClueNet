@@ -29,6 +29,13 @@ namespace ClueNet.Core.Structures
             }
         }
 
+        //public VectorClock(string name, ReadOnlyDictionary<string, VectorNum> vectors)
+        //{
+        //    Name = name;
+
+        //    _dict = new ConcurrentDictionary<string, VectorNum>(vectors);
+        //}
+
         // 單次加總
         public void Add()
         {

@@ -7,9 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel>
-            <Button Content="Submit" Click="btnSubmit_Click" />
-            <TextBlock x:Name="txtName" />
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <StackPanel>
+                <Button Content="Submit" Click="btnSubmit_Click" />
+                <TextBlock x:Name="txtName" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Frame Name="pnlBody"
+                   Source="Views/Pages/MainPage.xaml"
+                   BorderBrush="Black" BorderThickness="2" 
+                   NavigationUIVisibility="Visible" />
+        </Grid>
     </Grid>
 </Window>

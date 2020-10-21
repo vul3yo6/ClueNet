@@ -14,6 +14,8 @@ namespace ClueNet.Core.Structures
         private ConcurrentDictionary<string, SignalQueue> _dict { get; set; } 
             = new ConcurrentDictionary<string, SignalQueue>();
 
+        private static string _lastName = string.Empty;
+
         public SignalGroup(string groupName, List<string> channelNames)
         {
             Name = groupName;

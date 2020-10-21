@@ -12,15 +12,10 @@ namespace ClueNet.Core.Signal
 {
     public class SignalManager
     {
-        //public SignalGroupManager Signals { get; private set; }
-
-        //public SignalManager(List<string> groupNames, List<string> channelNames)
-        //{
-        //    Signals = new SignalGroupManager(groupNames, channelNames);
-        //}
-
         private ConcurrentDictionary<string, SignalGroup> _signalGroupDict { get; set; }
             = new ConcurrentDictionary<string, SignalGroup>();
+
+        private static string _lastChannelName = string.Empty;
 
         public SignalManager(List<string> groupNames, List<string> channelNames)
         {
@@ -34,6 +29,12 @@ namespace ClueNet.Core.Signal
         public void AddSignalItem(string groupName, string signalName, double value)
         {
             _signalGroupDict[groupName].AddValue(signalName, value);
+
+            // todo
+            if (_lastChannelName.Equals(signalName) == false)
+            {
+                _lastChannelName = signalName;
+            }
         }
 
         public void SetSignalItemEnabled(string groupName, string signalName, SignalState state)

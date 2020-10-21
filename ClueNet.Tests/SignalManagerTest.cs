@@ -51,5 +51,29 @@ namespace ClueNet.Tests
             // Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void AddValue_VectorClock_IsCorrect()
+        {
+            // Arrange
+            string groupName = "DemoGroup";
+            string signalName1 = "DemoTemperature";
+            string signalName2 = "DemoVoltage";
+            double actual = 0;
+            double expected = 0;
+
+            // Act
+            _manager.SetSignalItemEnabled(groupName, signalName1, SignalState.Start);
+            _manager.AddSignalItem(groupName, signalName1, 0.99);
+
+            _manager.SetSignalItemEnabled(groupName, signalName2, SignalState.Start);
+            _manager.AddSignalItem(groupName, signalName2, 0.88);
+            _manager.AddSignalItem(groupName, signalName1, 0.99);
+
+            string temp = _manager.ToString();
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
